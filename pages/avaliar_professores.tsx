@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -22,17 +21,6 @@ const AvaliarProfessores = () => {
     const [avaliacao, setAvaliacao] = useState({});
     const [professorIndex, setProfessorIndex] = useState(0);
     const [sugestao, setSugestao] = useState('');
-
-    const perguntas = [
-        "Demonstra conhecimento do conteúdo trabalhado",
-        "Demonstra ter preparado bem a aula",
-        "Explica a matéria com clareza despertando interesse e participação?",
-        "Acompanha os trabalhos, é atencioso e esclarece adequadamente as dúvidas?",
-        "Demonstra domínio da turma?",
-        "Estimula o aluno a participar das aulas?",
-        "Mantém a disciplina e a ordem na sala?",
-        "Utiliza adequadamente o tempo da aula?"
-    ];
 
     useEffect(() => {
         if (turmaId) {
@@ -89,9 +77,9 @@ const AvaliarProfessores = () => {
             <Navbar />
             <h1 className="text-2xl font-bold mb-4 text-center">Avaliação do Professor: {professor.nome}</h1>
             <form onSubmit={handleSubmit} className="space-y-6">
-                {perguntas.map((pergunta, index) => (
+                {[...Array(14)].map((_, index) => (
                     <div key={index} className="flex flex-col space-y-2">
-                        <Label htmlFor={`avaliacao_${index + 1}`}>{index + 1}. {pergunta}</Label>
+                        <Label htmlFor={`avaliacao_${index + 1}`}>{index + 1}. Pergunta {index + 1}:</Label>
                         <Select name={`avaliacao_${index + 1}`} onValueChange={(value) => handleChange({ target: { name: `avaliacao_${index + 1}`, value } })} required>
                             <SelectTrigger className="w-full">
                                 <SelectValue placeholder="Selecione uma opção" />
@@ -99,10 +87,10 @@ const AvaliarProfessores = () => {
                             <SelectContent>
                                 <SelectGroup>
                                     <SelectLabel>Opções</SelectLabel>
-                                    <SelectItem value="Otimo">Ótimo</SelectItem>
-                                    <SelectItem value="Bom">Bom</SelectItem>
-                                    <SelectItem value="Regular">Regular</SelectItem>
-                                    <SelectItem value="Necessita melhorar">Necessita Melhorar</SelectItem>
+                                    <SelectItem value="A">Ótimo</SelectItem>
+                                    <SelectItem value="B">Bom</SelectItem>
+                                    <SelectItem value="C">Regular</SelectItem>
+                                    <SelectItem value="D">Necessita Melhorar</SelectItem>
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
